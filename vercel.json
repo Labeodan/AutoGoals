@@ -8,8 +8,14 @@
     ],
     "routes": [
       {
-        "src": "/(.*)",
+        "src": "/",
         "dest": "script.py"
+      }
+    ],
+    "crons": [
+      {
+        "path": "/cron",
+        "schedule": "0 6 * * 1"
       }
     ]
   }
