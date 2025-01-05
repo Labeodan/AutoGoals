@@ -1,8 +1,6 @@
 # it runs everyday at 7am
 # if todays date string is the same with the keys of any of the data, it returns the value for that day.
 
-
-import time
 import sqlite3 
 from datetime import date
 import json
@@ -11,6 +9,8 @@ import os
 from email.message import EmailMessage
 import ssl
 from dotenv import load_dotenv
+from flask import Flask
+app = Flask(__name__)
 
 load_dotenv()
 
@@ -164,6 +164,7 @@ example_date = date(2025, 12, 2)
 }
 '''
 
+
 #! This is where i create my SQLite file and connect to the DB
 file = "goals.db"
 # connect to SQLite DB
@@ -262,6 +263,36 @@ def send_mail(sender_email_id, sender_email_id_password,receiver_email_id, messa
 
 
 
+# def auto_goals():
+#     sender_email = os.getenv("SENDER_EMAIL_ID")
+#     sender_password = os.getenv("SENDER_EMAIL_ID_PASSWORD")
+#     receiver_email = os.getenv("RECEIVER_EMAIL_ID")
+
+#     try:
+#         # get message
+#         message = get_message()
+#         # print(f"Retrieved message: {message}")
+
+#         # send email
+#         if message:
+#             send_mail(
+#                 sender_email_id=sender_email, 
+#                 sender_email_id_password=sender_password, 
+#                 receiver_email_id=receiver_email, 
+#                 message=message
+#                 )
+#     except Exception as e:
+#         return (f"An error occurred: {e}")
+    
+    
+
+#  # call the auto goals function
+# auto_goals()
+
+
+
+
+@app.route('/')
 def auto_goals():
     sender_email = os.getenv("SENDER_EMAIL_ID")
     sender_password = os.getenv("SENDER_EMAIL_ID_PASSWORD")
@@ -280,12 +311,11 @@ def auto_goals():
                 receiver_email_id=receiver_email, 
                 message=message
                 )
+        return "Script executed successfully!", 200 
     except Exception as e:
         return (f"An error occurred: {e}")
-    
-    
 
- # call the auto goals function
-auto_goals()
 
+if __name__ == '__main__':
+    app.run()
 
