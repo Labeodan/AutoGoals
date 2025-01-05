@@ -169,7 +169,7 @@ example_date = date(2025, 12, 2)
 file = "goals.db"
 # connect to SQLite DB
 try:
-    connection = sqlite3.connect(file)
+    connection = sqlite3.connect(file, check_same_thread=False)
     print("Connected to SQLite")
 except sqlite3.Error as error:
     print("Failed to connect with sqlite3 database", error) 
