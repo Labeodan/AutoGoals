@@ -1,22 +1,26 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "script.py",
-        "use": "@vercel/python"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/",
-        "dest": "script.py"
-      }
-    ],
-    "crons": [
-      {
-        "path": "/cron",
-        "schedule": "0 6 * * 1"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/cron.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "script.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/cron",
+      "dest": "api/cron.js"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron",
+      "schedule": "46 23 * * 1",
+      "timezone": "UTC"
+    }
+  ]
+}
